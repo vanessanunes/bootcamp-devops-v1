@@ -1,13 +1,26 @@
 name: criando imagens
 
-on: push
+on:
+  push:
+    branches: [main]
+
 
 jobs:
-  criando_imagens:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       - name: Docker Build
-        run: docker build -t bootcamp-image app/.
+        run: docker buildx build -t bootcamp-image app/.
+
+  deploy:
+      needs: build
+      runs-on: self-hosted
+
+      steps:
+        - name: Run Docker container
+          run: docker run -d --rm --name bootcamp-container bootcamp-image
+
