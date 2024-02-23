@@ -1,4 +1,4 @@
-name: criando imagens
+name: start docker
 
 on:
   push:
@@ -21,6 +21,6 @@ jobs:
       runs-on: self-hosted
 
       steps:
-        - name: Run Docker container
+        - name: Run Docker Container
           run: docker run -d --rm --name bootcamp-container bootcamp-image
 
